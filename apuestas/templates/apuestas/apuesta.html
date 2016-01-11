@@ -1,0 +1,17 @@
+{% extends "apuestas/base.html" %}
+
+{% block contenido %}
+  <h1>{{apuesta.titulo}}</h1>
+  <h2>{{apuesta.descripcion}}</h2><br>
+  <p>¿A que desea apostar?</p>
+  <form class="" action="/apuesta/{{apuesta.id}}/" method="post">
+    {% csrf_token %}
+    <input type="radio" name="opcion" value="1">{{apuesta.opcion1}} ({{apuesta.cuotaOpcion1}}€) <br>
+    <input type="radio" name="opcion" value="2">{{apuesta.opcion2}} ({{apuesta.cuotaOpcion2}}€) <br>
+    <input type="radio" name="opcion" value="3">{{apuesta.opcion3}} ({{apuesta.cuotaOpcion3}}€) <br>
+    Cantidad:
+    <input type="text" name="cantidad" value="">
+    <input type="submit" name="name" value="¡Apostar!">
+  </form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+body{
+  background-color: white;
+  font-family: 'Maven Pro', sans-serif;
+}
+
+
+.green{
+  color: rgb(6, 212, 58);
+}
+
+.brown{
+  color: rgb(214, 112, 17);
+}
+
+.red{
+  color: rgb(230, 14, 14);
+}
+
+.menu{
+  height:85vh;
+  border-right: 1px solid grey;
+  background-color: white;
+}
+
+
+.center{
+  text-align: center;
+}

@@ -1,0 +1,7 @@
+{% extends "apuestas/base.html" %}
+
+{% block contenido %}
+  {% for apuesta in ultimasApuestas %}
+    {% include "apuestas/ultimasApuestas.html" %}
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "apuestas/base.html" %}
+
+{% block contenido %}
+  <h1>Hola, {{usuario.usuario.first_name}}</h1>
+  <h2>Tu banca actual es {{usuario.dinero}}€</h2>
+  <hr>
+  <h2>Tus participaciones</h2><br>
+  {% if participaciones %}
+    {% for participacion in participaciones %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{participacion.apuesta.titulo}}</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Eleccion:
+            {% if participacion.eleccion == 1 %}
+              {{participacion.apuesta.opcion1}}
+            {% elif participacion.eleccion == 2 %}
+              {{participacion.apuesta.opcion2}}
+            {% elif participacion.eleccion == 3 %}
+              {{participacion.apuesta.opcion3}}
+            {% endif %}
+          </p>
+          <p>
+            Cantidad: {{participacion.cantidad}}€
+          </p>
+        </div>
+      </div>
+
+      <p>
+
+      </p>
+      <p>
+
+      </p>
+    {% endfor %}
+  {% else %}
+  <p>Aún no tienes ni una participación en una apuesta</p>
+  {% endif %}
+  <hr>
+  <p>
+    Estos son tus datos por si quieres actualizar algo incorrecto:
+  </p>
+  <form action="/perfil/" method="post">
+    {% csrf_token %}
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" name="nombre" value="{{usuario.usuario.first_name}}" placeholder="Nombre">
+      </div>
+      <div class="form-group">
+        <label for="apellidos">Apellidos</label>
+        <input type="text" class="form-control" name="apellidos" value="{{usuario.usuario.last_name}}" placeholder="Apellidos">
+      </div>
+      <div class="form-group">
+        <label for="mail">Correo electrónico</label>
+        <input type="text" class="form-control" name="email" value="{{usuario.usuario.email}}" placeholder="Correo electrónico">
+      </div>
+      <div class="form-group">
+        <label for="fechaNacimiento">Fecha de nacimiento</label>
+        <input type="text" class="form-control" name="fechaNacimiento" value="{{usuario.fechaNacimiento}}" placeholder="Fecha de nacimiento" disabled>
+      </div>
+      <button type="submit" class="btn btn-default">Actualizar datos</button>
+  </form>
+  <hr>
+{% endblock %}

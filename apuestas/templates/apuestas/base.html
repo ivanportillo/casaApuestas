@@ -1,0 +1,80 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block titulo %}Casa de apuestas{% endblock %}</title>
+    <link href="{% static 'apuestas/css/bootstrap.css' %}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
+    <link href="{% static 'apuestas/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'apuestas/css/font-awesome.min.css' %}" rel="stylesheet">
+  </head>
+  <body>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/"><i class="fa fa-futbol-o"></i> Casa de apuestas</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li>
+                      <p class="navbar-text">
+                        {% if not user.is_authenticated %}
+                          <i class="fa fa-user red"></i> No ha iniciado sesión
+                        {% else %}
+                          <li><p class="navbar-text"><i class="fa fa-user brown"></i> Iniciada sesión como <a href="/perfil" class="navbar-link">{{user.username}}</a></p></li>
+                        {% endif %}
+                      </p>
+                    </li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                      {% if not user.is_authenticated %}
+                        <li><a href="/registro">Registro</a></li>
+                        <form class="navbar-form navbar-left" role="search" method="POST" action="/">
+                          {% csrf_token %}
+                          <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Usuario" name="usuario">
+                            <input type="password" class="form-control" placeholder="Password" name="password">
+                          </div>
+                          <button type="submit" class="btn btn-default">¡Entrar!</button>
+                        </form>
+                      {% else %}
+                        {% if user.is_staff %}
+                        <li><a href="/resultados"><i class="fa fa-check blue"></i> Añadir resultados</a></li>
+                        {% endif %}
+                        <li><a href="/ingresar"><i class="fa fa-money green"></i> <strong>Saldo:</strong> {{usuario.dinero}}€</a></li>
+                        <li><a href="/salir"><i class="fa fa-sign-out red"></i> Salir</a></li>
+                      {% endif %}
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+          </div>
+          <div class="col-lg-3 menu">
+            <h3 class="center">DEPORTES</h2>
+            <ul class="nav nav-pills nav-stacked center">
+              {% for deporte in deportes%}
+                <li><a href="/deporte/{{deporte.id}}">{{deporte.nombre}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-lg-9">
+            {% block contenido %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>

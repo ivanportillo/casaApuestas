@@ -1,0 +1,14 @@
+{% extends "apuestas/base.html" %}
+
+{% block contenido %}
+  <h1>Ingresar dinero</h1>
+  <form action="/ingresar/" method="post">
+    {% csrf_token %}
+      <div class="form-group">
+        <label for="dinero">Cantidad a ingresar:</label>
+        <input type="text" class="form-control" style="width:200px;" id="dinero" name="dinero" placeholder="Dinero">
+        <p class="help-block">Juego responsable, ingresa con cabeza</p>
+      </div>
+      <button type="submit" class="btn btn-default">Ingresar dinero</button>
+  </form>
+{% endblock %}
